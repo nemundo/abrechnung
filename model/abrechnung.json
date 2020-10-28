@@ -1,0 +1,143 @@
+{
+    "app": "Abrechnung",
+    "name": "abrechnung",
+    "namespace": "Nemundo\\Abrechnung",
+    "is_deleted": false,
+    "model": [
+        {
+            "template": "default",
+            "model_id": "f484a75e-45a4-4294-a4b6-4b131f13a4fb",
+            "label": "Abrechnung",
+            "class_name": "Abrechnung",
+            "table_name": "abrechnung_abrechnung",
+            "namespace": "Nemundo\\Abrechnung\\Data\\Abrechnung",
+            "row_class_name": "",
+            "primary_index": "auto_increment",
+            "is_deleted": false,
+            "type": [
+                {
+                    "type": "text",
+                    "label": "Abrechnung",
+                    "field_name": "abrechnung",
+                    "variable_name": "abrechnung",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "length": "255"
+                },
+                {
+                    "type": "external",
+                    "label": "Group",
+                    "field_name": "group",
+                    "variable_name": "group",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "external_model_id": "c6e00009-24e0-4cef-82ee-34a89152415f"
+                }
+            ],
+            "index": [
+                {
+                    "index_name": "group",
+                    "index_type": "index",
+                    "field_name": [
+                        "group"
+                    ]
+                }
+            ]
+        },
+        {
+            "template": "default",
+            "model_id": "03bb4de1-25de-4810-a677-f0a666c79f50",
+            "label": "Journal",
+            "class_name": "Journal",
+            "table_name": "abrechnung_journal",
+            "namespace": "Nemundo\\Abrechnung\\Data\\Journal",
+            "row_class_name": "",
+            "primary_index": "auto_increment",
+            "is_deleted": false,
+            "type": [
+                {
+                    "type": "external",
+                    "label": "Abrechnung",
+                    "field_name": "abrechnung",
+                    "variable_name": "abrechnung",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "external_model_id": "f484a75e-45a4-4294-a4b6-4b131f13a4fb"
+                },
+                {
+                    "type": "date",
+                    "label": "Datum",
+                    "field_name": "datum",
+                    "variable_name": "datum",
+                    "allow_null": true,
+                    "is_deleted": false
+                },
+                {
+                    "type": "large_text",
+                    "label": "Text",
+                    "field_name": "text",
+                    "variable_name": "text",
+                    "allow_null": true,
+                    "is_deleted": false
+                },
+                {
+                    "type": "yes_no",
+                    "label": "Beleg",
+                    "field_name": "beleg",
+                    "variable_name": "beleg",
+                    "allow_null": true,
+                    "is_deleted": false
+                },
+                {
+                    "type": "number",
+                    "label": "Beleg Nr",
+                    "field_name": "beleg_nr",
+                    "variable_name": "belegNr",
+                    "allow_null": true,
+                    "is_deleted": false
+                },
+                {
+                    "type": "decimal_number",
+                    "label": "Betrag",
+                    "field_name": "betrag",
+                    "variable_name": "betrag",
+                    "allow_null": true,
+                    "is_deleted": false
+                },
+                {
+                    "type": "external",
+                    "label": "Kasse",
+                    "field_name": "kasse",
+                    "variable_name": "kasse",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "external_model_id": "9a191ce0-8446-45c7-ab28-c048558e2c2c"
+                }
+            ],
+            "index": []
+        },
+        {
+            "template": "default",
+            "model_id": "9a191ce0-8446-45c7-ab28-c048558e2c2c",
+            "label": "Kasse",
+            "class_name": "Kasse",
+            "table_name": "abrechnung_kasse",
+            "namespace": "Nemundo\\Abrechnung\\Data\\Kasse",
+            "row_class_name": "",
+            "primary_index": "auto_increment",
+            "is_deleted": false,
+            "type": [
+                {
+                    "type": "text",
+                    "label": "Kasse",
+                    "field_name": "kasse",
+                    "variable_name": "kasse",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "length": "255"
+                }
+            ],
+            "index": []
+        }
+    ]
+}
