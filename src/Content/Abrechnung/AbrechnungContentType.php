@@ -19,22 +19,23 @@ class AbrechnungContentType extends AbstractTreeContentType
 
     protected function loadContentType()
     {
+
         $this->typeLabel = 'Abrechnung';
         $this->typeId = '406196b0-0308-4c8b-bb60-d57c945b702b';
         $this->formClass = AbrechnungContentForm::class;
         $this->viewClass = AbrechnungContentView::class;
-        $this->viewSite=JournalSite::$site;
-        $this->parameterClass=AbrechnungParameter::class;
+        $this->viewSite = JournalSite::$site;
+        $this->parameterClass = AbrechnungParameter::class;
 
     }
 
     protected function onCreate()
     {
 
-        $data=new Abrechnung();
-        $data->abrechnung=$this->abrechnung;
-        $data->groupId=$this->groupId;
-        $this->dataId=$data->save();
+        $data = new Abrechnung();
+        $data->abrechnung = $this->abrechnung;
+        $data->groupId = $this->groupId;
+        $this->dataId = $data->save();
 
     }
 
@@ -44,7 +45,7 @@ class AbrechnungContentType extends AbstractTreeContentType
 
     protected function onDataRow()
     {
-        $this->dataRow=(new AbrechnungReader())->getRowById($this->dataId);
+        $this->dataRow = (new AbrechnungReader())->getRowById($this->dataId);
     }
 
     /**

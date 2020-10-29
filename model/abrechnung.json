@@ -46,6 +46,38 @@
         },
         {
             "template": "default",
+            "model_id": "1228b930-2d13-44a8-8721-bc6a77425249",
+            "label": "Abrechnung Index",
+            "class_name": "AbrechnungIndex",
+            "table_name": "abrechnung_abrechnung_index",
+            "namespace": "Nemundo\\Abrechnung\\Data\\AbrechnungIndex",
+            "row_class_name": "",
+            "primary_index": "auto_increment",
+            "is_deleted": false,
+            "type": [
+                {
+                    "type": "external",
+                    "label": "Parent Content",
+                    "field_name": "parent_content",
+                    "variable_name": "parentContent",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "external_model_id": "2b8a3194-c10f-4a5c-a439-84581d448f35"
+                },
+                {
+                    "type": "external",
+                    "label": "Abrechnung",
+                    "field_name": "abrechnung",
+                    "variable_name": "abrechnung",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "external_model_id": "f484a75e-45a4-4294-a4b6-4b131f13a4fb"
+                }
+            ],
+            "index": []
+        },
+        {
+            "template": "default",
             "model_id": "03bb4de1-25de-4810-a677-f0a666c79f50",
             "label": "Journal",
             "class_name": "Journal",
