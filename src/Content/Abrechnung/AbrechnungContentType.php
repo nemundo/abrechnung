@@ -8,7 +8,7 @@ use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungRow;
 use Nemundo\Abrechnung\Parameter\AbrechnungParameter;
 use Nemundo\Abrechnung\Site\JournalSite;
 use Nemundo\Content\Index\Group\Type\GroupTrait;
-use Nemundo\Content\Type\AbstractTreeContentType;
+use Nemundo\Content\Index\Tree\Type\AbstractTreeContentType;
 
 class AbrechnungContentType extends AbstractTreeContentType
 {
