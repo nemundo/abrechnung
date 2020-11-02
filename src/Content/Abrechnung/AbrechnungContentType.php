@@ -55,4 +55,17 @@ class AbrechnungContentType extends AbstractTreeContentType
     {
         return parent::getDataRow();
     }
+
+
+    public function getSubject()
+    {
+        return $this->getDataRow()->abrechnung;
+    }
+
+
+    public function getText()
+    {
+        return 'beschreibung zur abrechnung';
+    }
+
 }

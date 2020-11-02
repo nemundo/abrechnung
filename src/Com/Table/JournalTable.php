@@ -26,6 +26,11 @@ class JournalTable extends AdminTable
      */
     public $abrechnungId;
 
+    /**
+     * @var bool
+     */
+    public $editMode=true;
+
     public function getContent()
     {
 
@@ -34,10 +39,13 @@ class JournalTable extends AdminTable
         $header->addText('Datum');
         $header->addText('Text');
         $header->addText('Betrag');
-        $header->addText('Bezahlt von');
+        //$header->addText('Bezahlt von');
+
+        if ($this->editMode) {
         $header->addEmpty();
         $header->addEmpty();
         $header->addEmpty();
+        }
 
         $reader = new JournalReader();
         $reader->model->loadKasse();
@@ -65,6 +73,7 @@ class JournalTable extends AdminTable
 
             $row->addText($journalRow->kasse->kasse);
 
+            if ($this->editMode) {
             $site = clone(JournalViewSite::$site);
             $site->addParameter(new AbrechnungParameter($this->abrechnungId));
             $site->addParameter(new JournalParameter($journalRow->id));
@@ -78,6 +87,7 @@ class JournalTable extends AdminTable
             $site = clone(JournalDeleteSite::$site);
             $site->addParameter(new JournalParameter($journalRow->id));
             $row->addIconSite($site);
+            }
 
         }
 
@@ -92,10 +102,12 @@ class JournalTable extends AdminTable
         $bold = new Bold($td);
         $bold->content = (new TotalBetrag())->getTotal($this->abrechnungId);
 
-        $row->addEmpty();
-        $row->addEmpty();
-        $row->addEmpty();
-        $row->addEmpty();
+        if ($this->editMode) {
+            $row->addEmpty();
+            $row->addEmpty();
+            $row->addEmpty();
+            $row->addEmpty();
+        }
 
         return parent::getContent();
 

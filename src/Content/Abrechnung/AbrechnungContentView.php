@@ -24,9 +24,11 @@ class AbrechnungContentView extends AbstractContentView
 
         $table=new JournalTable($this);
         $table->abrechnungId=$abrechnungRow->id;
+        $table->editMode=false;
 
+        /*
         $btn=new AdminSiteButton($this);
-        $btn->site=$this->contentType->getViewSite();
+        $btn->site=$this->contentType->getViewSite();*/
 
 
         return parent::getContent();
