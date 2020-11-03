@@ -3,14 +3,10 @@
 namespace Nemundo\Abrechnung\Page;
 
 use Nemundo\Abrechnung\Com\Form\JournalForm;
-use Nemundo\Abrechnung\Com\Navigation\AbrechnungNavigation;
 use Nemundo\Abrechnung\Com\Table\JournalTable;
-use Nemundo\Abrechnung\Com\Table\KontostandTable;
 use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungReader;
 use Nemundo\Abrechnung\Parameter\AbrechnungParameter;
 use Nemundo\Abrechnung\Site\AbrechnungExcelExportSite;
-use Nemundo\Abrechnung\Site\AbrechnungSite;
-use App\Template\AppTemplate;
 use Nemundo\Abrechnung\Template\AbrechnungTemplate;
 use Nemundo\Admin\Com\Button\AdminSiteButton;
 use Nemundo\Admin\Com\Title\AdminTitle;
@@ -22,10 +18,6 @@ class JournalPage extends AbrechnungTemplate
 
     public function getContent()
     {
-
-        //AbrechnungSite::$site->showMenuAsActive = true;
-
-        //new AbrechnungNavigation($this);
 
         $abrechnungParameter = new AbrechnungParameter();
         $abrechnungId = $abrechnungParameter->getValue();
@@ -41,7 +33,7 @@ class JournalPage extends AbrechnungTemplate
         $layout = new BootstrapTwoColumnLayout($this);
 
         $widget = new AdminWidget($layout->col1);
-        $widget->widgetTitle='Journal';
+        $widget->widgetTitle = 'Journal';
 
         $table = new JournalTable($widget);
         $table->abrechnungId = $abrechnungId;
@@ -55,7 +47,7 @@ class JournalPage extends AbrechnungTemplate
 
 
         $widget = new AdminWidget($layout->col2);
-        $widget->widgetTitle='Kontostand';
+        $widget->widgetTitle = 'Kontostand';
 
         /*$table = new KontostandTable($widget);
         $table->abrechnungId = $abrechnungId;*/

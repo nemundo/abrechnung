@@ -57,9 +57,9 @@
             "type": [
                 {
                     "type": "external",
-                    "label": "Parent Content",
-                    "field_name": "parent_content",
-                    "variable_name": "parentContent",
+                    "label": "Parent",
+                    "field_name": "parent",
+                    "variable_name": "parent",
                     "allow_null": true,
                     "is_deleted": false,
                     "external_model_id": "2b8a3194-c10f-4a5c-a439-84581d448f35"
@@ -70,11 +70,44 @@
                     "field_name": "abrechnung",
                     "variable_name": "abrechnung",
                     "allow_null": true,
-                    "is_deleted": false,
+                    "is_deleted": true,
                     "external_model_id": "f484a75e-45a4-4294-a4b6-4b131f13a4fb"
+                },
+                {
+                    "type": "external",
+                    "label": "Content",
+                    "field_name": "content",
+                    "variable_name": "content",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "external_model_id": "2b8a3194-c10f-4a5c-a439-84581d448f35"
+                },
+                {
+                    "type": "text",
+                    "label": "Abrechnung",
+                    "field_name": "abrechnung",
+                    "variable_name": "abrechnung",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "length": "255"
                 }
             ],
-            "index": []
+            "index": [
+                {
+                    "index_name": "parent",
+                    "index_type": "index",
+                    "field_name": [
+                        "parent"
+                    ]
+                },
+                {
+                    "index_name": "content",
+                    "index_type": "unique_index",
+                    "field_name": [
+                        "content"
+                    ]
+                }
+            ]
         },
         {
             "template": "default",

@@ -19,20 +19,25 @@ public $id;
 /**
 * @var int
 */
-public $parentContentId;
+public $parentId;
 
 /**
 * @var \Nemundo\Content\Row\ContentCustomRow
 */
-public $parentContent;
+public $parent;
 
 /**
 * @var int
 */
-public $abrechnungId;
+public $contentId;
 
 /**
-* @var \Nemundo\Abrechnung\Data\Abrechnung\AbrechnungRow
+* @var \Nemundo\Content\Row\ContentCustomRow
+*/
+public $content;
+
+/**
+* @var string
 */
 public $abrechnung;
 
@@ -40,19 +45,20 @@ public function __construct(\Nemundo\Db\Row\AbstractDataRow $row, $model) {
 parent::__construct($row->getData());
 $this->row = $row;
 $this->id = $this->getModelValue($model->id);
-$this->parentContentId = intval($this->getModelValue($model->parentContentId));
-if ($model->parentContent !== null) {
-$this->loadNemundoContentDataContentContentparentContentRow($model->parentContent);
+$this->parentId = intval($this->getModelValue($model->parentId));
+if ($model->parent !== null) {
+$this->loadNemundoContentDataContentContentparentRow($model->parent);
 }
-$this->abrechnungId = intval($this->getModelValue($model->abrechnungId));
-if ($model->abrechnung !== null) {
-$this->loadNemundoAbrechnungDataAbrechnungAbrechnungabrechnungRow($model->abrechnung);
+$this->contentId = intval($this->getModelValue($model->contentId));
+if ($model->content !== null) {
+$this->loadNemundoContentDataContentContentcontentRow($model->content);
 }
+$this->abrechnung = $this->getModelValue($model->abrechnung);
 }
-private function loadNemundoContentDataContentContentparentContentRow($model) {
-$this->parentContent = new \Nemundo\Content\Row\ContentCustomRow($this->row, $model);
+private function loadNemundoContentDataContentContentparentRow($model) {
+$this->parent = new \Nemundo\Content\Row\ContentCustomRow($this->row, $model);
 }
-private function loadNemundoAbrechnungDataAbrechnungAbrechnungabrechnungRow($model) {
-$this->abrechnung = new \Nemundo\Abrechnung\Data\Abrechnung\AbrechnungRow($this->row, $model);
+private function loadNemundoContentDataContentContentcontentRow($model) {
+$this->content = new \Nemundo\Content\Row\ContentCustomRow($this->row, $model);
 }
 }

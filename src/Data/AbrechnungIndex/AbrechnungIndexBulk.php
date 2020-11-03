@@ -9,20 +9,26 @@ protected $model;
 /**
 * @var string
 */
-public $parentContentId;
+public $parentId;
 
 /**
 * @var string
 */
-public $abrechnungId;
+public $contentId;
+
+/**
+* @var string
+*/
+public $abrechnung;
 
 public function __construct() {
 parent::__construct();
 $this->model = new AbrechnungIndexModel();
 }
 public function save() {
-$this->typeValueList->setModelValue($this->model->parentContentId, $this->parentContentId);
-$this->typeValueList->setModelValue($this->model->abrechnungId, $this->abrechnungId);
+$this->typeValueList->setModelValue($this->model->parentId, $this->parentId);
+$this->typeValueList->setModelValue($this->model->contentId, $this->contentId);
+$this->typeValueList->setModelValue($this->model->abrechnung, $this->abrechnung);
 $id = parent::save();
 return $id;
 }

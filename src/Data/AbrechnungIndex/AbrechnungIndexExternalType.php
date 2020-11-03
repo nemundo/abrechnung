@@ -9,20 +9,25 @@ public $id;
 /**
 * @var \Nemundo\Model\Type\Id\IdType
 */
-public $parentContentId;
+public $parentId;
 
 /**
 * @var \Nemundo\Content\Data\Content\ContentExternalType
 */
-public $parentContent;
+public $parent;
 
 /**
 * @var \Nemundo\Model\Type\Id\IdType
 */
-public $abrechnungId;
+public $contentId;
 
 /**
-* @var \Nemundo\Abrechnung\Data\Abrechnung\AbrechnungExternalType
+* @var \Nemundo\Content\Data\Content\ContentExternalType
+*/
+public $content;
+
+/**
+* @var \Nemundo\Model\Type\Text\TextType
 */
 public $abrechnung;
 
@@ -38,40 +43,47 @@ $this->id->aliasFieldName = $this->id->tableName . "_" . $this->id->fieldName;
 $this->id->label = "Id";
 $this->addType($this->id);
 
-$this->parentContentId = new \Nemundo\Model\Type\Id\IdType();
-$this->parentContentId->fieldName = "parent_content";
-$this->parentContentId->tableName = $this->parentFieldName . "_" . $this->externalTableName;
-$this->parentContentId->aliasFieldName = $this->parentContentId->tableName ."_".$this->parentContentId->fieldName;
-$this->parentContentId->label = "Parent Content";
-$this->addType($this->parentContentId);
+$this->parentId = new \Nemundo\Model\Type\Id\IdType();
+$this->parentId->fieldName = "parent";
+$this->parentId->tableName = $this->parentFieldName . "_" . $this->externalTableName;
+$this->parentId->aliasFieldName = $this->parentId->tableName ."_".$this->parentId->fieldName;
+$this->parentId->label = "Parent";
+$this->addType($this->parentId);
 
-$this->abrechnungId = new \Nemundo\Model\Type\Id\IdType();
-$this->abrechnungId->fieldName = "abrechnung";
-$this->abrechnungId->tableName = $this->parentFieldName . "_" . $this->externalTableName;
-$this->abrechnungId->aliasFieldName = $this->abrechnungId->tableName ."_".$this->abrechnungId->fieldName;
-$this->abrechnungId->label = "Abrechnung";
-$this->addType($this->abrechnungId);
+$this->contentId = new \Nemundo\Model\Type\Id\IdType();
+$this->contentId->fieldName = "content";
+$this->contentId->tableName = $this->parentFieldName . "_" . $this->externalTableName;
+$this->contentId->aliasFieldName = $this->contentId->tableName ."_".$this->contentId->fieldName;
+$this->contentId->label = "Content";
+$this->addType($this->contentId);
+
+$this->abrechnung = new \Nemundo\Model\Type\Text\TextType();
+$this->abrechnung->fieldName = "abrechnung";
+$this->abrechnung->tableName = $this->parentFieldName . "_" . $this->externalTableName;
+$this->abrechnung->aliasFieldName = $this->abrechnung->tableName . "_" . $this->abrechnung->fieldName;
+$this->abrechnung->label = "Abrechnung";
+$this->addType($this->abrechnung);
 
 }
-public function loadParentContent() {
-if ($this->parentContent == null) {
-$this->parentContent = new \Nemundo\Content\Data\Content\ContentExternalType(null, $this->parentFieldName . "_parent_content");
-$this->parentContent->fieldName = "parent_content";
-$this->parentContent->tableName = $this->parentFieldName . "_" . $this->externalTableName;
-$this->parentContent->aliasFieldName = $this->parentContent->tableName ."_".$this->parentContent->fieldName;
-$this->parentContent->label = "Parent Content";
-$this->addType($this->parentContent);
+public function loadParent() {
+if ($this->parent == null) {
+$this->parent = new \Nemundo\Content\Data\Content\ContentExternalType(null, $this->parentFieldName . "_parent");
+$this->parent->fieldName = "parent";
+$this->parent->tableName = $this->parentFieldName . "_" . $this->externalTableName;
+$this->parent->aliasFieldName = $this->parent->tableName ."_".$this->parent->fieldName;
+$this->parent->label = "Parent";
+$this->addType($this->parent);
 }
 return $this;
 }
-public function loadAbrechnung() {
-if ($this->abrechnung == null) {
-$this->abrechnung = new \Nemundo\Abrechnung\Data\Abrechnung\AbrechnungExternalType(null, $this->parentFieldName . "_abrechnung");
-$this->abrechnung->fieldName = "abrechnung";
-$this->abrechnung->tableName = $this->parentFieldName . "_" . $this->externalTableName;
-$this->abrechnung->aliasFieldName = $this->abrechnung->tableName ."_".$this->abrechnung->fieldName;
-$this->abrechnung->label = "Abrechnung";
-$this->addType($this->abrechnung);
+public function loadContent() {
+if ($this->content == null) {
+$this->content = new \Nemundo\Content\Data\Content\ContentExternalType(null, $this->parentFieldName . "_content");
+$this->content->fieldName = "content";
+$this->content->tableName = $this->parentFieldName . "_" . $this->externalTableName;
+$this->content->aliasFieldName = $this->content->tableName ."_".$this->content->fieldName;
+$this->content->label = "Content";
+$this->addType($this->content);
 }
 return $this;
 }
