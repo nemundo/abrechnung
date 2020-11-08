@@ -1,7 +1,7 @@
 <?php
 namespace Nemundo\Abrechnung\Data;
 use Nemundo\Model\Collection\AbstractModelCollection;
-class AbrechnungCollection extends AbstractModelCollection {
+class AbrechnungModelCollection extends AbstractModelCollection {
 protected function loadCollection() {
 $this->addModel(new \Nemundo\Abrechnung\Data\Abrechnung\AbrechnungModel());
 $this->addModel(new \Nemundo\Abrechnung\Data\AbrechnungIndex\AbrechnungIndexModel());
