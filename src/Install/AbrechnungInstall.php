@@ -3,11 +3,13 @@
 namespace Nemundo\Abrechnung\Install;
 
 use Nemundo\Abrechnung\Application\AbrechnungApplication;
+use Nemundo\Abrechnung\Content\Abrechnung\AbrechnungContentType;
 use Nemundo\Abrechnung\Data\AbrechnungModelCollection;
 use Nemundo\Abrechnung\Usergroup\AbrechnungUsergroup;
 use Nemundo\App\Application\Setup\ApplicationSetup;
 use Nemundo\App\Script\Setup\ScriptSetup;
 use Nemundo\Content\Index\Group\User\UsergroupContentType;
+use Nemundo\Content\Setup\ContentTypeSetup;
 use Nemundo\Model\Setup\ModelCollectionSetup;
 use Nemundo\Project\Install\AbstractInstall;
 use Nemundo\User\Setup\UsergroupSetup;
@@ -33,6 +35,10 @@ class AbrechnungInstall extends AbstractInstall
 
         $setup = new ScriptSetup();
         $setup->addScript(new AbrechnungClean());
+
+        (new ContentTypeSetup(new AbrechnungApplication()))
+            ->addContentType(new AbrechnungContentType());
+
 
     }
 
