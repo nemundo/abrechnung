@@ -11,16 +11,6 @@ public $id;
 */
 public $abrechnung;
 
-/**
-* @var \Nemundo\Model\Type\External\Id\ExternalIdType
-*/
-public $groupId;
-
-/**
-* @var \Nemundo\Content\Index\Group\Data\Group\GroupExternalType
-*/
-public $group;
-
 protected function loadModel() {
 $this->tableName = "abrechnung_abrechnung";
 $this->aliasTableName = "abrechnung_abrechnung";
@@ -47,26 +37,5 @@ $this->abrechnung->label = "Abrechnung";
 $this->abrechnung->allowNullValue = true;
 $this->abrechnung->length = 255;
 
-$this->groupId = new \Nemundo\Model\Type\External\Id\ExternalIdType($this);
-$this->groupId->tableName = "abrechnung_abrechnung";
-$this->groupId->fieldName = "group";
-$this->groupId->aliasFieldName = "abrechnung_abrechnung_group";
-$this->groupId->label = "Group";
-$this->groupId->allowNullValue = true;
-
-$index = new \Nemundo\Model\Definition\Index\ModelIndex($this);
-$index->indexName = "group";
-$index->addType($this->groupId);
-
-}
-public function loadGroup() {
-if ($this->group == null) {
-$this->group = new \Nemundo\Content\Index\Group\Data\Group\GroupExternalType($this, "abrechnung_abrechnung_group");
-$this->group->tableName = "abrechnung_abrechnung";
-$this->group->fieldName = "group";
-$this->group->aliasFieldName = "abrechnung_abrechnung_group";
-$this->group->label = "Group";
-}
-return $this;
 }
 }

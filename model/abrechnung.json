@@ -30,19 +30,11 @@
                     "field_name": "group",
                     "variable_name": "group",
                     "allow_null": true,
-                    "is_deleted": false,
+                    "is_deleted": true,
                     "external_model_id": "c6e00009-24e0-4cef-82ee-34a89152415f"
                 }
             ],
-            "index": [
-                {
-                    "index_name": "group",
-                    "index_type": "index",
-                    "field_name": [
-                        "group"
-                    ]
-                }
-            ]
+            "index": []
         },
         {
             "template": "default",
