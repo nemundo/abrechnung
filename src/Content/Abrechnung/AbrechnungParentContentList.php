@@ -7,10 +7,10 @@ namespace Nemundo\Abrechnung\Content\Abrechnung;
 use Nemundo\Abrechnung\Data\AbrechnungIndex\AbrechnungIndexReader;
 use Nemundo\Admin\Com\Table\AdminClickableTable;
 use Nemundo\Com\TableBuilder\TableHeader;
-use Nemundo\Content\Index\Tree\Type\AbstractContentList;
+use Nemundo\Content\Index\Tree\Type\AbstractParentContentList;
 use Nemundo\Package\Bootstrap\Table\BootstrapClickableTableRow;
 
-class AbrechnungContentList extends AbstractContentList
+class AbrechnungParentContentList extends AbstractParentContentList
 {
 
     public function getContent()

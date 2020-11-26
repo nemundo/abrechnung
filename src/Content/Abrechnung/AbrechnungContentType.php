@@ -30,7 +30,7 @@ class AbrechnungContentType extends AbstractTreeContentType
         $this->formClass = AbrechnungContentForm::class;
         $this->searchFormClass=AbrechnungContentSearchForm::class;
         $this->viewClass = AbrechnungContentView::class;
-        $this->listClass = AbrechnungContentList::class;
+        $this->listClass = AbrechnungParentContentList::class;
         $this->viewSite = JournalSite::$site;
         $this->parameterClass = AbrechnungParameter::class;
 
