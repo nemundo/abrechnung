@@ -62,7 +62,7 @@ class AbrechnungPage extends AbrechnungTemplate
         $type=new AbrechnungContentType();
         $type->groupId = (new UserGroupSession())->getGroupId();
         //$type->groupId = (new UsergroupContentType((new AbrechnungUsergroup())->usergroupId))->getGroupId();
-        $type->getForm($widget);
+        $type->getDefaultForm($widget);
 
         return parent::getContent();
 

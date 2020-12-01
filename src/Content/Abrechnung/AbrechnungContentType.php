@@ -27,8 +27,8 @@ class AbrechnungContentType extends AbstractTreeContentType
 
         $this->typeLabel = 'Abrechnung';
         $this->typeId = '406196b0-0308-4c8b-bb60-d57c945b702b';
-        $this->formClass = AbrechnungContentForm::class;
-        $this->searchFormClass=AbrechnungContentSearchForm::class;
+        $this->formClassList[] = AbrechnungContentForm::class;
+        $this->formClassList[]=AbrechnungContentSearchForm::class;
         $this->viewClass = AbrechnungContentView::class;
         $this->listClass = AbrechnungParentContentList::class;
         $this->viewSite = JournalSite::$site;
