@@ -9,6 +9,7 @@
     }
   ],
   "require": {
+    "nemundo/content": "*"
   },
   "autoload": {
     "psr-4": {
