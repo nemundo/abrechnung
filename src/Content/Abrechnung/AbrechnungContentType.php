@@ -6,13 +6,16 @@ use Nemundo\Abrechnung\Data\Abrechnung\Abrechnung;
 use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungReader;
 use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungRow;
 use Nemundo\Abrechnung\Data\AbrechnungIndex\AbrechnungIndex;
+use Nemundo\Abrechnung\Data\Journal\JournalReader;
 use Nemundo\Abrechnung\Parameter\AbrechnungParameter;
 use Nemundo\Abrechnung\Site\JournalSite;
 use Nemundo\Content\App\Document\Index\DocumentGroupIndexTrait;
 use Nemundo\Content\App\File\Content\Image\ImageContentType;
 use Nemundo\Content\Index\Group\Session\UserGroupSession;
 use Nemundo\Content\Index\Group\Type\GroupTrait;
+use Nemundo\Content\Index\Tree\Com\Form\ContentSearchForm;
 use Nemundo\Content\Index\Tree\Type\AbstractTreeContentType;
+use Nemundo\Db\Sql\Order\SortOrder;
 
 class AbrechnungContentType extends AbstractTreeContentType
 {
@@ -28,8 +31,9 @@ class AbrechnungContentType extends AbstractTreeContentType
         $this->typeLabel = 'Abrechnung';
         $this->typeId = '406196b0-0308-4c8b-bb60-d57c945b702b';
         $this->formClassList[] = AbrechnungContentForm::class;
-        $this->formClassList[]=AbrechnungContentSearchForm::class;
-        $this->viewClass = AbrechnungContentView::class;
+        $this->formClassList[]= ContentSearchForm::class;   //ear AbrechnungContentSearchForm::class;
+        $this->viewClassList[] = AbrechnungContentView::class;
+
         $this->listClass = AbrechnungParentContentList::class;
         $this->viewSite = JournalSite::$site;
         $this->parameterClass = AbrechnungParameter::class;
@@ -100,6 +104,22 @@ class AbrechnungContentType extends AbstractTreeContentType
     public function getText()
     {
         return 'beschreibung zur abrechnung';
+    }
+
+
+    public function getJournalReaderData() {
+
+        $reader = new JournalReader();
+        $reader->model->loadKonto();
+        $reader->filter->andEqual($reader->model->abrechnungId, $this->dataId);
+        $reader->addOrder($reader->model->beleg, SortOrder::DESCENDING);
+        $reader->addOrder($reader->model->belegNr);
+        $reader->addOrder($reader->model->datum);
+
+        return $reader->getData();
+
+
+
     }
 
 }

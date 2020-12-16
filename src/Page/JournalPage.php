@@ -2,8 +2,10 @@
 
 namespace Nemundo\Abrechnung\Page;
 
+use Nemundo\Abrechnung\Com\Container\BelegContainer;
 use Nemundo\Abrechnung\Com\Form\JournalForm;
 use Nemundo\Abrechnung\Com\Table\JournalTable;
+use Nemundo\Abrechnung\Content\Abrechnung\AbrechnungContentType;
 use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungReader;
 use Nemundo\Abrechnung\Parameter\AbrechnungParameter;
 use Nemundo\Abrechnung\Site\AbrechnungExcelExportSite;
@@ -12,6 +14,7 @@ use Nemundo\Admin\Com\Button\AdminSiteButton;
 use Nemundo\Admin\Com\Title\AdminTitle;
 use Nemundo\Admin\Com\Widget\AdminWidget;
 use Nemundo\Package\Bootstrap\Layout\BootstrapTwoColumnLayout;
+use Nemundo\Web\Site\Site;
 
 class JournalPage extends AbrechnungTemplate
 {
@@ -21,6 +24,9 @@ class JournalPage extends AbrechnungTemplate
 
         $abrechnungParameter = new AbrechnungParameter();
         $abrechnungId = $abrechnungParameter->getValue();
+
+        $abrechnungContentType = (new AbrechnungContentType($abrechnungParameter->getValue()));
+
         $abrechnungRow = (new AbrechnungReader())->getRowById($abrechnungParameter->getValue());
 
         $title = new AdminTitle($this);
@@ -36,7 +42,11 @@ class JournalPage extends AbrechnungTemplate
         $widget->widgetTitle = 'Journal';
 
         $table = new JournalTable($widget);
-        $table->abrechnungId = $abrechnungId;
+        $table->abrechnungContentType =$abrechnungContentType;
+
+        $container=new BelegContainer($layout->col1);
+        $container->abrechnungContentType = $abrechnungContentType;
+
 
 
         $widget = new AdminWidget($layout->col2);
@@ -44,6 +54,7 @@ class JournalPage extends AbrechnungTemplate
 
         $form = new JournalForm($widget);
         $form->abrechnungId = $abrechnungId;
+        $form->redirectSite=new Site();
 
 
         $widget = new AdminWidget($layout->col2);

@@ -42,14 +42,19 @@ public $belegNr;
 public $betrag;
 
 /**
-* @var \Nemundo\Model\Type\Id\IdType
+* @var \Nemundo\Model\Type\File\ImageType
 */
-public $kasseId;
+public $belegBild;
 
 /**
-* @var \Nemundo\Abrechnung\Data\Kasse\KasseExternalType
+* @var \Nemundo\Model\Type\Id\IdType
 */
-public $kasse;
+public $kontoId;
+
+/**
+* @var \Nemundo\Abrechnung\Data\Konto\KontoExternalType
+*/
+public $konto;
 
 protected function loadExternalType() {
 parent::loadExternalType();
@@ -105,12 +110,19 @@ $this->betrag->aliasFieldName = $this->betrag->tableName . "_" . $this->betrag->
 $this->betrag->label = "Betrag";
 $this->addType($this->betrag);
 
-$this->kasseId = new \Nemundo\Model\Type\Id\IdType();
-$this->kasseId->fieldName = "kasse";
-$this->kasseId->tableName = $this->parentFieldName . "_" . $this->externalTableName;
-$this->kasseId->aliasFieldName = $this->kasseId->tableName ."_".$this->kasseId->fieldName;
-$this->kasseId->label = "Kasse";
-$this->addType($this->kasseId);
+$this->belegBild = new \Nemundo\Model\Type\File\ImageType();
+$this->belegBild->fieldName = "beleg_bild";
+$this->belegBild->tableName = $this->parentFieldName . "_" . $this->externalTableName;
+$this->belegBild->aliasFieldName = $this->belegBild->tableName . "_" . $this->belegBild->fieldName;
+$this->belegBild->label = "Beleg Bild";
+$this->addType($this->belegBild);
+
+$this->kontoId = new \Nemundo\Model\Type\Id\IdType();
+$this->kontoId->fieldName = "konto";
+$this->kontoId->tableName = $this->parentFieldName . "_" . $this->externalTableName;
+$this->kontoId->aliasFieldName = $this->kontoId->tableName ."_".$this->kontoId->fieldName;
+$this->kontoId->label = "Konto";
+$this->addType($this->kontoId);
 
 }
 public function loadAbrechnung() {
@@ -124,14 +136,14 @@ $this->addType($this->abrechnung);
 }
 return $this;
 }
-public function loadKasse() {
-if ($this->kasse == null) {
-$this->kasse = new \Nemundo\Abrechnung\Data\Kasse\KasseExternalType(null, $this->parentFieldName . "_kasse");
-$this->kasse->fieldName = "kasse";
-$this->kasse->tableName = $this->parentFieldName . "_" . $this->externalTableName;
-$this->kasse->aliasFieldName = $this->kasse->tableName ."_".$this->kasse->fieldName;
-$this->kasse->label = "Kasse";
-$this->addType($this->kasse);
+public function loadKonto() {
+if ($this->konto == null) {
+$this->konto = new \Nemundo\Abrechnung\Data\Konto\KontoExternalType(null, $this->parentFieldName . "_konto");
+$this->konto->fieldName = "konto";
+$this->konto->tableName = $this->parentFieldName . "_" . $this->externalTableName;
+$this->konto->aliasFieldName = $this->konto->tableName ."_".$this->konto->fieldName;
+$this->konto->label = "Konto";
+$this->addType($this->konto);
 }
 return $this;
 }

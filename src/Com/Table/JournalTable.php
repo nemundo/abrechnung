@@ -4,7 +4,8 @@ namespace Nemundo\Abrechnung\Com\Table;
 
 
 use Nemundo\Abrechnung\Berechnung\TotalBetrag;
-use Nemundo\Abrechnung\Data\Journal\JournalReader;
+use Nemundo\Abrechnung\Content\Abrechnung\AbrechnungContentType;
+use Nemundo\Abrechnung\Data\Journal\JournalModel;
 use Nemundo\Abrechnung\Parameter\AbrechnungParameter;
 use Nemundo\Abrechnung\Parameter\JournalParameter;
 use Nemundo\Abrechnung\Site\JournalDeleteSite;
@@ -14,7 +15,6 @@ use Nemundo\Admin\Com\Table\AdminTable;
 use Nemundo\Com\TableBuilder\TableHeader;
 use Nemundo\Com\TableBuilder\TableRow;
 use Nemundo\Core\Type\Number\Number;
-use Nemundo\Db\Sql\Order\SortOrder;
 use Nemundo\Html\Formatting\Bold;
 use Nemundo\Html\Table\Td;
 
@@ -22,39 +22,40 @@ class JournalTable extends AdminTable
 {
 
     /**
+     * @var AbrechnungContentType
+     */
+    public $abrechnungContentType;
+
+    /**
      * @var string
      */
-    public $abrechnungId;
+    //public $abrechnungId;
 
     /**
      * @var bool
      */
-    public $editMode=true;
+    public $editMode = true;
 
     public function getContent()
     {
+
+        $model=new JournalModel();
+        $model->loadKonto();
 
         $header = new TableHeader($this);
         $header->addText('Beleg Nr.');
         $header->addText('Datum');
         $header->addText('Text');
         $header->addText('Betrag');
-        //$header->addText('Bezahlt von');
+        $header->addText($model->konto->label);
 
         if ($this->editMode) {
-        $header->addEmpty();
-        $header->addEmpty();
-        $header->addEmpty();
+            $header->addEmpty();
+            $header->addEmpty();
+            $header->addEmpty();
         }
 
-        $reader = new JournalReader();
-        $reader->model->loadKasse();
-        $reader->filter->andEqual($reader->model->abrechnungId, $this->abrechnungId);
-        $reader->addOrder($reader->model->beleg, SortOrder::DESCENDING);
-        $reader->addOrder($reader->model->belegNr);
-        $reader->addOrder($reader->model->datum);
-
-        foreach ($reader->getData() as $journalRow) {
+        foreach ($this->abrechnungContentType->getJournalReaderData() as $journalRow) {
 
             $row = new TableRow($this);
 
@@ -71,22 +72,22 @@ class JournalTable extends AdminTable
             $td->addAttribute('style', 'text-align:right');
             $td->content = (new Number($journalRow->betrag))->formatNumber(2);
 
-            $row->addText($journalRow->kasse->kasse);
+            $row->addText($journalRow->konto->konto);
 
             if ($this->editMode) {
-            $site = clone(JournalViewSite::$site);
-            $site->addParameter(new AbrechnungParameter($this->abrechnungId));
-            $site->addParameter(new JournalParameter($journalRow->id));
-            $row->addIconSite($site);
+                $site = clone(JournalViewSite::$site);
+                $site->addParameter($this->abrechnungContentType->getParameter());
+                $site->addParameter(new JournalParameter($journalRow->id));
+                $row->addIconSite($site);
 
-            $site = clone(JournalEditSite::$site);
-            $site->addParameter(new AbrechnungParameter($this->abrechnungId));
-            $site->addParameter(new JournalParameter($journalRow->id));
-            $row->addIconSite($site);
+                $site = clone(JournalEditSite::$site);
+                $site->addParameter($this->abrechnungContentType->getParameter());
+                $site->addParameter(new JournalParameter($journalRow->id));
+                $row->addIconSite($site);
 
-            $site = clone(JournalDeleteSite::$site);
-            $site->addParameter(new JournalParameter($journalRow->id));
-            $row->addIconSite($site);
+                $site = clone(JournalDeleteSite::$site);
+                $site->addParameter(new JournalParameter($journalRow->id));
+                $row->addIconSite($site);
             }
 
         }
@@ -100,7 +101,7 @@ class JournalTable extends AdminTable
         $td->addAttribute('style', 'text-align:right');
 
         $bold = new Bold($td);
-        $bold->content = (new TotalBetrag())->getTotal($this->abrechnungId);
+        $bold->content = (new TotalBetrag())->getTotal($this->abrechnungContentType->getDataId());
 
         if ($this->editMode) {
             $row->addEmpty();

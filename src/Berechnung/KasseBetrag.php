@@ -18,13 +18,13 @@ class KasseBetrag extends AbstractBase
     }
 
 
-    public function getTotal($kasseId)
+    public function getTotal($kontoId)
     {
 
         $reader = new JournalReader();
         $reader->filter->andEqual($reader->model->abrechnungId,$this->abrechnungId);
-        $reader->filter->andEqual($reader->model->kasseId,$kasseId);
-        $reader->addGroup($reader->model->kasseId);
+        $reader->filter->andEqual($reader->model->kontoId,$kontoId);
+        $reader->addGroup($reader->model->kontoId);
 
         $sum = new SumField($reader);
         $sum->aggregateField = $reader->model->betrag;

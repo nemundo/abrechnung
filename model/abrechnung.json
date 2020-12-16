@@ -167,8 +167,31 @@
                     "field_name": "kasse",
                     "variable_name": "kasse",
                     "allow_null": true,
-                    "is_deleted": false,
+                    "is_deleted": true,
                     "external_model_id": "9a191ce0-8446-45c7-ab28-c048558e2c2c"
+                },
+                {
+                    "type": "image",
+                    "label": "Beleg Bild",
+                    "field_name": "beleg_bild",
+                    "variable_name": "belegBild",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "format": [
+                        {
+                            "format_type": "auto_size",
+                            "size": "500"
+                        }
+                    ]
+                },
+                {
+                    "type": "external",
+                    "label": "Konto",
+                    "field_name": "konto",
+                    "variable_name": "konto",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "external_model_id": "e1b19733-b6a7-4166-a782-54e1a0cd824d"
                 }
             ],
             "index": []
@@ -182,13 +205,45 @@
             "namespace": "Nemundo\\Abrechnung\\Data\\Kasse",
             "row_class_name": "",
             "primary_index": "auto_increment",
-            "is_deleted": false,
+            "is_deleted": true,
             "type": [
                 {
                     "type": "text",
                     "label": "Kasse",
                     "field_name": "kasse",
                     "variable_name": "kasse",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "length": "255"
+                }
+            ],
+            "index": []
+        },
+        {
+            "template": "default",
+            "model_id": "e1b19733-b6a7-4166-a782-54e1a0cd824d",
+            "label": "Konto",
+            "class_name": "Konto",
+            "table_name": "abrechnung_konto",
+            "namespace": "Nemundo\\Abrechnung\\Data\\Konto",
+            "row_class_name": "",
+            "primary_index": "auto_increment",
+            "is_deleted": false,
+            "type": [
+                {
+                    "type": "text",
+                    "label": "Konto",
+                    "field_name": "konto",
+                    "variable_name": "konto",
+                    "allow_null": true,
+                    "is_deleted": false,
+                    "length": "255"
+                },
+                {
+                    "type": "text",
+                    "label": "IBAN",
+                    "field_name": "iban",
+                    "variable_name": "iban",
                     "allow_null": true,
                     "is_deleted": false,
                     "length": "255"

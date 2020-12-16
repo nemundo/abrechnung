@@ -52,14 +52,19 @@ public $belegNr;
 public $betrag;
 
 /**
-* @var int
+* @var \Nemundo\Model\Reader\Property\File\ImageReaderProperty
 */
-public $kasseId;
+public $belegBild;
 
 /**
-* @var \Nemundo\Abrechnung\Data\Kasse\KasseRow
+* @var int
 */
-public $kasse;
+public $kontoId;
+
+/**
+* @var \Nemundo\Abrechnung\Data\Konto\KontoRow
+*/
+public $konto;
 
 public function __construct(\Nemundo\Db\Row\AbstractDataRow $row, $model) {
 parent::__construct($row->getData());
@@ -77,15 +82,16 @@ $this->text = $this->getModelValue($model->text);
 $this->beleg = boolval($this->getModelValue($model->beleg));
 $this->belegNr = intval($this->getModelValue($model->belegNr));
 $this->betrag = floatval($this->getModelValue($model->betrag));
-$this->kasseId = intval($this->getModelValue($model->kasseId));
-if ($model->kasse !== null) {
-$this->loadNemundoAbrechnungDataKasseKassekasseRow($model->kasse);
+$this->belegBild = new \Nemundo\Model\Reader\Property\File\ImageReaderProperty($row, $model->belegBild);
+$this->kontoId = intval($this->getModelValue($model->kontoId));
+if ($model->konto !== null) {
+$this->loadNemundoAbrechnungDataKontoKontokontoRow($model->konto);
 }
 }
 private function loadNemundoAbrechnungDataAbrechnungAbrechnungabrechnungRow($model) {
 $this->abrechnung = new \Nemundo\Abrechnung\Data\Abrechnung\AbrechnungRow($this->row, $model);
 }
-private function loadNemundoAbrechnungDataKasseKassekasseRow($model) {
-$this->kasse = new \Nemundo\Abrechnung\Data\Kasse\KasseRow($this->row, $model);
+private function loadNemundoAbrechnungDataKontoKontokontoRow($model) {
+$this->konto = new \Nemundo\Abrechnung\Data\Konto\KontoRow($this->row, $model);
 }
 }

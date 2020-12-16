@@ -38,14 +38,20 @@ public $belegNr;
 public $betrag;
 
 /**
+* @var \Nemundo\Model\Data\Property\File\ImageDataProperty
+*/
+public $belegBild;
+
+/**
 * @var string
 */
-public $kasseId;
+public $kontoId;
 
 public function __construct() {
 parent::__construct();
 $this->model = new JournalModel();
 $this->datum = new \Nemundo\Core\Type\DateTime\Date();
+$this->belegBild = new \Nemundo\Model\Data\Property\File\ImageDataProperty($this->model->belegBild, $this->typeValueList);
 }
 public function update() {
 $this->typeValueList->setModelValue($this->model->abrechnungId, $this->abrechnungId);
@@ -56,7 +62,7 @@ $this->typeValueList->setModelValue($this->model->beleg, $this->beleg);
 $this->typeValueList->setModelValue($this->model->belegNr, $this->belegNr);
 if (!is_null($this->betrag)) $this->betrag = str_replace(",", ".", $this->betrag);
 $this->typeValueList->setModelValue($this->model->betrag, $this->betrag);
-$this->typeValueList->setModelValue($this->model->kasseId, $this->kasseId);
+$this->typeValueList->setModelValue($this->model->kontoId, $this->kontoId);
 parent::update();
 }
 }

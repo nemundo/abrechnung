@@ -42,14 +42,24 @@ public $belegNr;
 public $betrag;
 
 /**
-* @var \Nemundo\Model\Type\External\Id\ExternalIdType
+* @var \Nemundo\Model\Type\File\ImageType
 */
-public $kasseId;
+public $belegBild;
 
 /**
-* @var \Nemundo\Abrechnung\Data\Kasse\KasseExternalType
+* @var \Nemundo\Model\Type\ImageFormat\AutoSizeModelImageFormat
 */
-public $kasse;
+public $belegBildAutoSize500;
+
+/**
+* @var \Nemundo\Model\Type\External\Id\ExternalIdType
+*/
+public $kontoId;
+
+/**
+* @var \Nemundo\Abrechnung\Data\Konto\KontoExternalType
+*/
+public $konto;
 
 protected function loadModel() {
 $this->tableName = "abrechnung_journal";
@@ -111,12 +121,21 @@ $this->betrag->aliasFieldName = "abrechnung_journal_betrag";
 $this->betrag->label = "Betrag";
 $this->betrag->allowNullValue = true;
 
-$this->kasseId = new \Nemundo\Model\Type\External\Id\ExternalIdType($this);
-$this->kasseId->tableName = "abrechnung_journal";
-$this->kasseId->fieldName = "kasse";
-$this->kasseId->aliasFieldName = "abrechnung_journal_kasse";
-$this->kasseId->label = "Kasse";
-$this->kasseId->allowNullValue = true;
+$this->belegBild = new \Nemundo\Model\Type\File\ImageType($this);
+$this->belegBild->tableName = "abrechnung_journal";
+$this->belegBild->fieldName = "beleg_bild";
+$this->belegBild->aliasFieldName = "abrechnung_journal_beleg_bild";
+$this->belegBild->label = "Beleg Bild";
+$this->belegBild->allowNullValue = true;
+$this->belegBildAutoSize500 = new \Nemundo\Model\Type\ImageFormat\AutoSizeModelImageFormat($this->belegBild);
+$this->belegBildAutoSize500->size = 500;
+
+$this->kontoId = new \Nemundo\Model\Type\External\Id\ExternalIdType($this);
+$this->kontoId->tableName = "abrechnung_journal";
+$this->kontoId->fieldName = "konto";
+$this->kontoId->aliasFieldName = "abrechnung_journal_konto";
+$this->kontoId->label = "Konto";
+$this->kontoId->allowNullValue = true;
 
 }
 public function loadAbrechnung() {
@@ -129,13 +148,13 @@ $this->abrechnung->label = "Abrechnung";
 }
 return $this;
 }
-public function loadKasse() {
-if ($this->kasse == null) {
-$this->kasse = new \Nemundo\Abrechnung\Data\Kasse\KasseExternalType($this, "abrechnung_journal_kasse");
-$this->kasse->tableName = "abrechnung_journal";
-$this->kasse->fieldName = "kasse";
-$this->kasse->aliasFieldName = "abrechnung_journal_kasse";
-$this->kasse->label = "Kasse";
+public function loadKonto() {
+if ($this->konto == null) {
+$this->konto = new \Nemundo\Abrechnung\Data\Konto\KontoExternalType($this, "abrechnung_journal_konto");
+$this->konto->tableName = "abrechnung_journal";
+$this->konto->fieldName = "konto";
+$this->konto->aliasFieldName = "abrechnung_journal_konto";
+$this->konto->label = "Konto";
 }
 return $this;
 }
