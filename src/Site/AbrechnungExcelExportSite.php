@@ -6,7 +6,7 @@ use Nemundo\Abrechnung\Berechnung\KasseBetrag;
 use Nemundo\Abrechnung\Berechnung\TotalBetrag;
 use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungReader;
 use Nemundo\Abrechnung\Data\Journal\JournalReader;
-use Nemundo\Abrechnung\Data\Kasse\KasseReader;
+use Nemundo\Abrechnung\Data\Konto\KontoReader;
 use Nemundo\Abrechnung\Parameter\AbrechnungParameter;
 use Nemundo\Db\Sql\Order\SortOrder;
 use Nemundo\Office\Excel\Document\ExcelDocument;
@@ -53,7 +53,7 @@ class AbrechnungExcelExportSite extends AbstractExcelSite
         $excel->addRow($header);
 
         $reader = new JournalReader();
-        $reader->model->loadKasse();
+        $reader->model->loadKonto();
         $reader->filter->andEqual($reader->model->abrechnungId, $abrechnungId);
         $reader->addOrder($reader->model->beleg, SortOrder::DESCENDING);
         $reader->addOrder($reader->model->belegNr);
@@ -71,7 +71,7 @@ class AbrechnungExcelExportSite extends AbstractExcelSite
             $data[] = $journalRow->datum->getShortDateLeadingZeroFormat();
             $data[] = $journalRow->text;
             $data[] = $journalRow->betrag;
-            $data[] = $journalRow->kasse->kasse;
+            $data[] = $journalRow->konto->konto;
 
             $excel->addRow($data);
         }
@@ -86,10 +86,10 @@ class AbrechnungExcelExportSite extends AbstractExcelSite
         $excel->addEmptyRow();
         $excel->addRow(['Kontostand'], true);
 
-        $reader = new KasseReader();
+        $reader = new KontoReader();
         foreach ($reader->getData() as $kasseRow) {
             $data = [];
-            $data[] = $kasseRow->kasse;
+            $data[] = $kasseRow->konto;
             $data[] = ((new KasseBetrag($abrechnungId))->getTotal($kasseRow->id));
             $data[] = $kasseRow->iban;
             $excel->addRow($data);

@@ -99,8 +99,8 @@ class JournalForm extends BootstrapForm
         $this->belegBild = new BootstrapFileUpload($this);
         $this->belegBild->label = $model->belegBild->label;
 
-        $this->text->value = 'test123';
-        $this->betrag->value = '123';
+        /*$this->text->value = 'test123';
+        $this->betrag->value = '123';*/
 
 
         if ($this->journalId !== null) {

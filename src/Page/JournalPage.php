@@ -61,6 +61,7 @@ class JournalPage extends AbrechnungTemplate
         }
 
         $form->redirectSite = new Site();
+        $form->redirectSite->removeParameter(new JournalParameter());
 
 
         $widget = new AdminWidget($layout->col2);

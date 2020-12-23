@@ -11,6 +11,7 @@ use Nemundo\Content\View\AbstractContentView;
 use Nemundo\Html\Block\Div;
 use Nemundo\Html\Heading\H2;
 use Nemundo\Html\Heading\H3;
+use Nemundo\Html\Heading\H4;
 use Nemundo\Html\Paragraph\Paragraph;
 use Nemundo\Package\Bootstrap\Image\BootstrapResponsiveImage;
 
@@ -25,6 +26,9 @@ class AbrechnungContentView extends AbstractContentView
     {
 
         $abrechnungRow=$this->contentType->getDataRow();
+
+        $h4=new H4($this);
+        $h4->content='Abrechnung';
 
         $h2=new H2($this);
         $h2->content=$abrechnungRow->abrechnung;
