@@ -5,9 +5,11 @@ namespace Nemundo\Abrechnung\Page;
 use Nemundo\Abrechnung\Com\Container\BelegContainer;
 use Nemundo\Abrechnung\Com\Form\JournalForm;
 use Nemundo\Abrechnung\Com\Table\JournalTable;
+use Nemundo\Abrechnung\Com\Table\KontostandTable;
 use Nemundo\Abrechnung\Content\Abrechnung\AbrechnungContentType;
 use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungReader;
 use Nemundo\Abrechnung\Parameter\AbrechnungParameter;
+use Nemundo\Abrechnung\Parameter\JournalParameter;
 use Nemundo\Abrechnung\Site\AbrechnungExcelExportSite;
 use Nemundo\Abrechnung\Template\AbrechnungTemplate;
 use Nemundo\Admin\Com\Button\AdminSiteButton;
@@ -42,26 +44,30 @@ class JournalPage extends AbrechnungTemplate
         $widget->widgetTitle = 'Journal';
 
         $table = new JournalTable($widget);
-        $table->abrechnungContentType =$abrechnungContentType;
+        $table->abrechnungContentType = $abrechnungContentType;
 
-        $container=new BelegContainer($layout->col1);
+        $container = new BelegContainer($layout->col1);
         $container->abrechnungContentType = $abrechnungContentType;
-
-
 
         $widget = new AdminWidget($layout->col2);
         $widget->widgetTitle = 'Neuer Journal Eintrag';
 
         $form = new JournalForm($widget);
         $form->abrechnungId = $abrechnungId;
-        $form->redirectSite=new Site();
+
+        $journalParameter = new JournalParameter();
+        if ($journalParameter->hasValue()) {
+            $form->journalId = $journalParameter->getValue();
+        }
+
+        $form->redirectSite = new Site();
 
 
         $widget = new AdminWidget($layout->col2);
         $widget->widgetTitle = 'Kontostand';
 
-        /*$table = new KontostandTable($widget);
-        $table->abrechnungId = $abrechnungId;*/
+        $table =new KontostandTable($widget);
+        $table->abrechnungId = $abrechnungId;
 
         return parent::getContent();
 

@@ -9,6 +9,10 @@ use Nemundo\Abrechnung\Data\Journal\JournalModel;
 use Nemundo\Abrechnung\Data\Journal\JournalReader;
 use Nemundo\Abrechnung\Data\Journal\JournalUpdate;
 use Nemundo\Abrechnung\Data\Journal\JournalValue;
+use Nemundo\Abrechnung\Parameter\JournalParameter;
+use Nemundo\Abrechnung\Site\BelegDeleteSite;
+use Nemundo\Admin\Com\Button\AdminSiteButton;
+use Nemundo\Content\App\File\Content\Image\ImageContentType;
 use Nemundo\Core\Type\DateTime\Date;
 use Nemundo\Core\Validation\ValidationType;
 use Nemundo\Db\Sql\Field\Aggregate\MaxField;
@@ -17,6 +21,7 @@ use Nemundo\Package\Bootstrap\FormElement\BootstrapCheckBox;
 use Nemundo\Package\Bootstrap\FormElement\BootstrapDatePicker;
 use Nemundo\Package\Bootstrap\FormElement\BootstrapFileUpload;
 use Nemundo\Package\Bootstrap\FormElement\BootstrapTextBox;
+use Nemundo\Package\Bootstrap\Image\BootstrapResponsiveImage;
 
 class JournalForm extends BootstrapForm
 {
@@ -61,6 +66,11 @@ class JournalForm extends BootstrapForm
      */
     private $belegBild;
 
+    /**
+     * @var ImageContentType
+     */
+    //private $image;
+
     public function getContent()
     {
 
@@ -103,6 +113,15 @@ class JournalForm extends BootstrapForm
             $this->beleg->value = $journalRow->beleg;
             $this->konto->value = $journalRow->kontoId;
 
+            if ($journalRow->belegBild->hasValue()) {
+                $img = new BootstrapResponsiveImage($this);
+                $img->src = $journalRow->belegBild->getImageUrl($journalRow->model->belegBildAutoSize500);
+
+                $btn = new AdminSiteButton($this);
+                $btn->site = clone(BelegDeleteSite::$site);
+                $btn->site->addParameter(new JournalParameter($this->journalId));
+            }
+
         }
 
         return parent::getContent();
@@ -120,13 +139,13 @@ class JournalForm extends BootstrapForm
             $data = new Journal();
             $data->abrechnungId = $this->abrechnungId;
 
-
-
-
             $data->datum->fromGermanFormat($this->datum->getValue());
             $data->text = $this->text->getValue();
             $data->betrag = $this->betrag->getValue();
-            $data->kontoId = $this->konto->getValue();
+
+            if ($this->konto->hasValue()) {
+                $data->kontoId = $this->konto->getValue();
+            }
 
             if ($this->belegBild->hasValue()) {
                 $beleg = true;
@@ -148,7 +167,23 @@ class JournalForm extends BootstrapForm
             $update->datum->fromGermanFormat($this->datum->getValue());
             $update->text = $this->text->getValue();
             $update->betrag = $this->betrag->getValue();
-            $update->kontoId = $this->konto->getValue();
+            if ($this->konto->hasValue()) {
+                $update->kontoId = $this->konto->getValue();
+            }
+
+            $beleg = false;
+
+            if ($this->belegBild->hasValue()) {
+                $beleg = true;
+                $update->belegBild->fromFileRequest($this->belegBild->getFileRequest());
+            }
+
+
+            if ($beleg) {
+                $update->beleg = true;
+                $update->belegNr = $this->getBelegNr();
+            }
+
             //$update->beleg = $this->beleg->getValue();
 
             /*if (($beleg) && (!$journalRow->beleg)) {

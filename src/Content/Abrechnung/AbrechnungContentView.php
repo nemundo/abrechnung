@@ -10,6 +10,7 @@ use Nemundo\Com\Html\Listing\UnorderedList;
 use Nemundo\Content\View\AbstractContentView;
 use Nemundo\Html\Block\Div;
 use Nemundo\Html\Heading\H2;
+use Nemundo\Html\Heading\H3;
 use Nemundo\Html\Paragraph\Paragraph;
 use Nemundo\Package\Bootstrap\Image\BootstrapResponsiveImage;
 
@@ -33,11 +34,17 @@ class AbrechnungContentView extends AbstractContentView
         $table->abrechnungContentType=$this->contentType;
         $table->editMode=false;
 
-        $table=new KontostandTable($this);
-        $table->abrechnungId=$abrechnungRow->id;
+
+
 
         $container=new BelegContainer($this);
         $container->abrechnungContentType = $this->contentType;
+
+        $h3=new H3($this);
+        $h3->content='Kontostand';
+
+        $table=new KontostandTable($this);
+        $table->abrechnungId=$abrechnungRow->id;
 
 
 

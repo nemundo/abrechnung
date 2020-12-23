@@ -10,6 +10,7 @@ use Nemundo\Abrechnung\Parameter\AbrechnungParameter;
 use Nemundo\Abrechnung\Parameter\JournalParameter;
 use Nemundo\Abrechnung\Site\JournalDeleteSite;
 use Nemundo\Abrechnung\Site\JournalEditSite;
+use Nemundo\Abrechnung\Site\JournalSite;
 use Nemundo\Abrechnung\Site\JournalViewSite;
 use Nemundo\Admin\Com\Table\AdminTable;
 use Nemundo\Com\TableBuilder\TableHeader;
@@ -17,6 +18,7 @@ use Nemundo\Com\TableBuilder\TableRow;
 use Nemundo\Core\Type\Number\Number;
 use Nemundo\Html\Formatting\Bold;
 use Nemundo\Html\Table\Td;
+use Nemundo\Html\Table\Th;
 
 class JournalTable extends AdminTable
 {
@@ -46,13 +48,19 @@ class JournalTable extends AdminTable
         $header->addText('Beleg Nr.');
         $header->addText('Datum');
         $header->addText('Text');
-        $header->addText('Betrag');
+        //$header->addText('Betrag');
+        //$header->addTextRight('Betrag');
+
+        $th=new Th($header);
+        //$th->width = 100;
+        $th->content='Betrag';
+
         $header->addText($model->konto->label);
 
         if ($this->editMode) {
             $header->addEmpty();
             $header->addEmpty();
-            $header->addEmpty();
+            //$header->addEmpty();
         }
 
         foreach ($this->abrechnungContentType->getJournalReaderData() as $journalRow) {
@@ -69,18 +77,18 @@ class JournalTable extends AdminTable
             $row->addText($journalRow->text);
 
             $td = new Td($row);
-            $td->addAttribute('style', 'text-align:right');
+            //$td->addAttribute('style', 'text-align:right');
             $td->content = (new Number($journalRow->betrag))->formatNumber(2);
 
             $row->addText($journalRow->konto->konto);
 
             if ($this->editMode) {
-                $site = clone(JournalViewSite::$site);
+                /*$site = clone(JournalViewSite::$site);
                 $site->addParameter($this->abrechnungContentType->getParameter());
                 $site->addParameter(new JournalParameter($journalRow->id));
-                $row->addIconSite($site);
+                $row->addIconSite($site);*/
 
-                $site = clone(JournalEditSite::$site);
+                $site =clone(JournalSite::$site);  // clone(JournalEditSite::$site);
                 $site->addParameter($this->abrechnungContentType->getParameter());
                 $site->addParameter(new JournalParameter($journalRow->id));
                 $row->addIconSite($site);
@@ -88,6 +96,7 @@ class JournalTable extends AdminTable
                 $site = clone(JournalDeleteSite::$site);
                 $site->addParameter(new JournalParameter($journalRow->id));
                 $row->addIconSite($site);
+
             }
 
         }
@@ -98,7 +107,7 @@ class JournalTable extends AdminTable
         $row->addBoldText('Total');
 
         $td = new Td($row);
-        $td->addAttribute('style', 'text-align:right');
+        //$td->addAttribute('style', 'text-align:right');
 
         $bold = new Bold($td);
         $bold->content = (new TotalBetrag())->getTotal($this->abrechnungContentType->getDataId());
@@ -107,6 +116,8 @@ class JournalTable extends AdminTable
             $row->addEmpty();
             $row->addEmpty();
             $row->addEmpty();
+            //$row->addEmpty();
+        } else {
             $row->addEmpty();
         }
 

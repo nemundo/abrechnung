@@ -29,6 +29,16 @@ class AbrechnungContentForm extends AbstractContentForm
         return parent::getContent();
     }
 
+
+    protected function loadUpdateForm()
+    {
+
+        $abrechnungRow=$this->contentType->getDataRow();
+        $this->abrechnung->value=$abrechnungRow->abrechnung;
+
+    }
+
+
     public function onSubmit()
     {
         $this->contentType->abrechnung=$this->abrechnung->getValue();

@@ -192,6 +192,15 @@
                     "allow_null": true,
                     "is_deleted": false,
                     "external_model_id": "e1b19733-b6a7-4166-a782-54e1a0cd824d"
+                },
+                {
+                    "type": "external",
+                    "label": "Image",
+                    "field_name": "image",
+                    "variable_name": "image",
+                    "allow_null": true,
+                    "is_deleted": true,
+                    "external_model_id": "17008142-21d2-4c00-a5dc-8956ab1ef751"
                 }
             ],
             "index": []

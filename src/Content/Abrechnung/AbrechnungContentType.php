@@ -5,6 +5,7 @@ namespace Nemundo\Abrechnung\Content\Abrechnung;
 use Nemundo\Abrechnung\Data\Abrechnung\Abrechnung;
 use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungReader;
 use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungRow;
+use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungUpdate;
 use Nemundo\Abrechnung\Data\AbrechnungIndex\AbrechnungIndex;
 use Nemundo\Abrechnung\Data\Journal\JournalReader;
 use Nemundo\Abrechnung\Parameter\AbrechnungParameter;
@@ -31,7 +32,7 @@ class AbrechnungContentType extends AbstractTreeContentType
         $this->typeLabel = 'Abrechnung';
         $this->typeId = '406196b0-0308-4c8b-bb60-d57c945b702b';
         $this->formClassList[] = AbrechnungContentForm::class;
-        $this->formClassList[]= ContentSearchForm::class;   //ear AbrechnungContentSearchForm::class;
+        $this->formClassList[]= ContentSearchForm::class;
         $this->viewClassList[] = AbrechnungContentView::class;
 
         $this->listClass = AbrechnungParentContentList::class;
@@ -60,6 +61,11 @@ class AbrechnungContentType extends AbstractTreeContentType
 
     protected function onUpdate()
     {
+
+        $update = new AbrechnungUpdate();
+        $update->abrechnung = $this->abrechnung;
+         $update->updateById($this->dataId);
+
     }
 
 
@@ -68,11 +74,12 @@ class AbrechnungContentType extends AbstractTreeContentType
 
         $abrechnungRow = $this->getDataRow();
 
-        $data = new AbrechnungIndex();
+        /*$data = new AbrechnungIndex();
+        $data->updateOnDuplicate=true;
         $data->contentId = $this->getContentId();
         $data->parentId = $this->getParentId();
         $data->abrechnung = $abrechnungRow->abrechnung;
-        $data->save();
+        $data->save();*/
 
         $this->addSearchText($abrechnungRow->abrechnung);
 
