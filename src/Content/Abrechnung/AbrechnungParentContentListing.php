@@ -8,11 +8,11 @@ use Nemundo\Abrechnung\Data\Abrechnung\AbrechnungReader;
 use Nemundo\Abrechnung\Data\AbrechnungIndex\AbrechnungIndexReader;
 use Nemundo\Admin\Com\Table\AdminClickableTable;
 use Nemundo\Com\TableBuilder\TableHeader;
-use Nemundo\Content\Index\Tree\Type\AbstractParentContentList;
-use Nemundo\Content\View\AbstractContentList;
+use Nemundo\Content\Index\Tree\Type\AbstractParentContentListing;
+use Nemundo\Content\View\AbstractContentListing;
 use Nemundo\Package\Bootstrap\Table\BootstrapClickableTableRow;
 
-class AbrechnungParentContentList extends AbstractContentList  //ParentContentList
+class AbrechnungParentContentListing extends AbstractContentListing  //ParentContentList
 {
 
     public function getContent()
