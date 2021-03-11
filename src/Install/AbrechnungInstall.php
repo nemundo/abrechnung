@@ -12,7 +12,7 @@ use Nemundo\App\Script\Setup\ScriptSetup;
 use Nemundo\Content\Index\Group\User\UsergroupContentType;
 use Nemundo\Content\Setup\ContentTypeSetup;
 use Nemundo\Model\Setup\ModelCollectionSetup;
-use Nemundo\Project\Install\AbstractInstall;
+use Nemundo\App\Application\Type\Install\AbstractInstall;
 use Nemundo\User\Setup\UsergroupSetup;
 
 class AbrechnungInstall extends AbstractInstall
